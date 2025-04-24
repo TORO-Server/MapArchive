@@ -1,0 +1,19 @@
+name: MapArchive
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run Archive
+        run: |
+          docker run --env GAS_URL=${{ secrets.GAS_URL }} ghcr.io/toro-server/toromapdrive:latest
+
+permissions:
+  contents: write
